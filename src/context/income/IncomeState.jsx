@@ -8,7 +8,7 @@ const IncomeState = (props) => {
   const fetchIncomes = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/api/income/getAllIncomes",
+        "https://pft-backend-wine.vercel.app/api/income/getAllIncomes",
         {
           method: "GET",
           headers: {
@@ -32,14 +32,17 @@ const IncomeState = (props) => {
   //Add Transactions
   const addIncome = async (source, amount, date) => {
     //API Call
-    const response = await fetch("http://127.0.0.1:5000/api/income/addIncome", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": localStorage.getItem("token"),
-      },
-      body: JSON.stringify({ source, amount, date }),
-    });
+    const response = await fetch(
+      "https://pft-backend-wine.vercel.app/api/income/addIncome",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ source, amount, date }),
+      }
+    );
 
     const income = await response.json();
     setTransactions(transactions.concat(income));
@@ -50,7 +53,7 @@ const IncomeState = (props) => {
   const deleteIncome = async (id) => {
     //API Call
     const response = await fetch(
-      `http://127.0.0.1:5000/api/income/deleteIncome/${id}`,
+      `https://pft-backend-wine.vercel.app/api/income/deleteIncome/${id}`,
       {
         method: "DELETE",
         headers: {
