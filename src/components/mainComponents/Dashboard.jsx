@@ -10,24 +10,47 @@ import Last30DaysExpenses from "./Last30DaysExpenses";
 import Last60daysIncome from "./Last60daysIncome";
 import RecentIncomes from "./RecentIncomes";
 import { Button } from "../ui/button";
+import { useLoading } from "@/context/LoadingContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const context = useContext(UserContext);
   const { fetchUser, user, dashboardData, dashboarddata } = context;
+  const { showLoading, hideLoading } = useLoading();
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      fetchUser();
-      dashboardData();
-    } else {
-      navigate("/login");
-    }
-  }, []);
+    const loadDashboardData = async () => {
+      showLoading();
 
-  console.log(dashboarddata);
+      try {
+        if (localStorage.getItem("token")) {
+          await fetchUser();
+          await dashboardData();
+        } else {
+          hideLoading();
+          navigate("/login");
+          return;
+        }
+      } catch (error) {
+        console.error("Error loading dashboard data:", error);
+      } finally {
+        hideLoading();
+      }
+    };
+
+    loadDashboardData();
+  }, [fetchUser, dashboardData, navigate, showLoading, hideLoading]);
+
+  if (!user || !dashboarddata) {
+    return null;
+  }
+  const hasFinancialData =
+    dashboarddata.totalBalance ||
+    dashboarddata.totalExpense ||
+    dashboarddata.totalIncome;
+
   return (
     <div className="pt-14 sm:pt-16">
-      {user && dashboarddata && (
+      {hasFinancialData ? (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-sm:gap-3 ">
           {/* Net Balance */}
           <div className="px-4 py-2 bg-green-100 border border-green-300 rounded-lg shadow flex items-center gap-4">
@@ -73,12 +96,6 @@ const Dashboard = () => {
               </p>
             </div>
           </div>
-        </div>
-      )}
-      {dashboarddata?.totalBalance ||
-      dashboarddata?.totalExpense ||
-      dashboarddata?.totalIncome ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-sm:gap-3 mt-6 h-full ">
           <RecentTransactions
             transactions={dashboarddata?.recentTransactions}
             onSeeMore={() => navigate("/expense")}
@@ -114,7 +131,7 @@ const Dashboard = () => {
           <img
             src={emptyBGImg}
             alt="No data available"
-            className=" w-72 md:w-100 h-auto opacity-80"
+            className="w-72 md:w-100 h-auto opacity-80"
           />
           <p className="text-md text-gray-600 text-center">
             No data found yet. Let's populate this space with your income and
