@@ -8,7 +8,7 @@ const ExpenseState = (props) => {
   const fetchExpenses = async () => {
     try {
       const response = await fetch(
-        "https://pft-backend-wine.vercel.app/api/expense/getAllExpenses",
+        "http://127.0.0.1:5000/api/expense/getAllExpenses",
         {
           method: "GET",
           headers: {
@@ -33,7 +33,7 @@ const ExpenseState = (props) => {
   const addExpense = async (category, amount, date) => {
     //API Call
     const response = await fetch(
-      "https://pft-backend-wine.vercel.app/api/expense/addExpense",
+      "http://127.0.0.1:5000/api/expense/addExpense",
       {
         method: "POST",
         headers: {
@@ -53,7 +53,7 @@ const ExpenseState = (props) => {
   const deleteExpense = async (id) => {
     //API Call
     const response = await fetch(
-      `https://pft-backend-wine.vercel.app/api/expense/deleteExpense/${id}`,
+      `http://127.0.0.1:5000/api/expense/deleteExpense/${id}`,
       {
         method: "DELETE",
         headers: {
