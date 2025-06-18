@@ -7,28 +7,25 @@ import LoginSignup from "./components/Auth/LoginSignup";
 import UserState from "./context/user/UserState";
 import IncomeState from "./context/income/IncomeState";
 import ExpenseState from "./context/expense/ExpenseState";
-import { LoadingProvider } from "./context/LoadingContext";
 
 function App() {
   return (
     <>
-      <LoadingProvider>
-        <UserState>
-          <IncomeState>
-            <ExpenseState>
-              <Navbar />
-              <div className="py-5 px-2 sm:p-5 ">
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/login" element={<LoginSignup />} />
-                  <Route path="/income" element={<Income />} />
-                  <Route path="/expense" element={<Expense />} />
-                </Routes>
-              </div>
-            </ExpenseState>
-          </IncomeState>
-        </UserState>
-      </LoadingProvider>
+      <UserState>
+        <IncomeState>
+          <ExpenseState>
+            <Navbar />
+            <div className="py-5 px-2 sm:p-5 ">
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/login" element={<LoginSignup />} />
+                <Route path="/income" element={<Income />} />
+                <Route path="/expense" element={<Expense />} />
+              </Routes>
+            </div>
+          </ExpenseState>
+        </IncomeState>
+      </UserState>
     </>
   );
 }

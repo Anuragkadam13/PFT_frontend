@@ -7,13 +7,16 @@ const UserState = (props) => {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/auth/getuser", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        "https://pft-backend-wine.vercel.app/api/auth/getuser",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
 
       const json = await response.json();
       if (json.success && json.user) {
@@ -29,7 +32,7 @@ const UserState = (props) => {
   const dashboardData = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/api/dashboard/getDashboardData",
+        "https://pft-backend-wine.vercel.app/api/dashboard/getDashboardData",
         {
           method: "GET",
           headers: {

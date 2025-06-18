@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -37,16 +36,19 @@ const LoginSignup = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://127.0.0.1:5000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: credentials.email,
-        password: credentials.password,
-      }),
-    });
+    const response = await fetch(
+      "https://pft-backend-wine.vercel.app/api/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: credentials.email,
+          password: credentials.password,
+        }),
+      }
+    );
     const json = await response.json();
     if (json.success) {
       //Save the auth token and redirect
@@ -60,17 +62,20 @@ const LoginSignup = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://127.0.0.1:5000/api/auth/createUser", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: registerCredentials.name,
-        email: registerCredentials.email,
-        password: registerCredentials.password,
-      }),
-    });
+    const response = await fetch(
+      "https://pft-backend-wine.vercel.app/api/auth/createUser",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: registerCredentials.name,
+          email: registerCredentials.email,
+          password: registerCredentials.password,
+        }),
+      }
+    );
     const json = await response.json();
     console.log(json);
     if (json.success) {
