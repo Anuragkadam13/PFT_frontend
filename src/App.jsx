@@ -7,13 +7,13 @@ import LoginSignup from "./components/Auth/LoginSignup";
 import UserState from "./context/user/UserState";
 import IncomeState from "./context/income/IncomeState";
 import ExpenseState from "./context/expense/ExpenseState";
-import { LoadingProvider } from "./context/LoadingContext";
 import Loader from "./components/customComponents/Loader";
+import LoaderState from "./context/Loader/LoaderState";
 
 function App() {
   return (
     <>
-      <LoadingProvider>
+      <LoaderState>
         <UserState>
           <IncomeState>
             <ExpenseState>
@@ -30,7 +30,7 @@ function App() {
             </ExpenseState>
           </IncomeState>
         </UserState>
-      </LoadingProvider>
+      </LoaderState>
     </>
   );
 }

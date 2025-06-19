@@ -10,12 +10,13 @@ import Last30DaysExpenses from "./Last30DaysExpenses";
 import Last60daysIncome from "./Last60daysIncome";
 import RecentIncomes from "./RecentIncomes";
 import { Button } from "../ui/button";
-import { useLoading } from "@/context/LoadingContext";
+import LoadingContext from "@/context/Loader/LoadingContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const context = useContext(UserContext);
-  const { showLoading, hideLoading } = useLoading();
+  const loadContext = useContext(LoadingContext);
+  const { showLoading, hideLoading } = loadContext;
   const { fetchUser, user, dashboardData, dashboarddata } = context;
   useEffect(() => {
     const loadDashboardData = async () => {

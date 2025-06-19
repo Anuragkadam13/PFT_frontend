@@ -1,7 +1,9 @@
-import React from "react";
+import LoadingContext from "@/context/Loader/LoadingContext";
+import React, { useContext } from "react";
 
 const Loader = () => {
-  const { isLoading } = useLoading();
+  const context = useContext(LoadingContext);
+  const { isLoading } = context;
 
   if (!isLoading) return null;
 
