@@ -13,7 +13,7 @@ const Income = () => {
   const contextIncome = useContext(incomeContext);
   const { transactions, addIncome, fetchIncomes, deleteIncome } = contextIncome;
   const loadContext = useContext(LoadingContext);
-  const { showLoading, hideLoading } = loadContext;
+  const { showLoading, hideLoading, isLoading } = loadContext;
 
   useEffect(() => {
     const loadAllIncomeRelatedData = async () => {
@@ -38,10 +38,12 @@ const Income = () => {
   }, []);
   return (
     <div className="pt-14 sm:pt-16">
-      <div className="grid grid-cols-1 gap-6 max-sm:gap-3">
-        <IncomeOverview transactions={transactions} addIncome={addIncome} />
-        <IncomeList transactions={transactions} deleteIncome={deleteIncome} />
-      </div>
+      {!isLoading && (
+        <div className="grid grid-cols-1 gap-6 max-sm:gap-3">
+          <IncomeOverview transactions={transactions} addIncome={addIncome} />
+          <IncomeList transactions={transactions} deleteIncome={deleteIncome} />
+        </div>
+      )}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router";
 import ExpenseOverview from "./ExpenseOverview";
 import ExpenseList from "./ExpenseList";
+import LoadingContext from "@/context/Loader/LoadingContext";
 const Expense = () => {
   const navigate = useNavigate();
   const context = useContext(UserContext);
@@ -11,25 +12,45 @@ const Expense = () => {
   const contextExpense = useContext(expenseContext);
   const { fetchExpenses, addExpense, deleteExpense, transactions } =
     contextExpense;
+  const loadContext = useContext(LoadingContext);
+  const { showLoading, hideLoading, isLoading } = loadContext;
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      fetchUser();
-      dashboardData();
-      fetchExpenses();
-    } else {
-      navigate("/login");
-    }
+    const loadAllIncomeRelatedData = async () => {
+      showLoading();
+      try {
+        if (localStorage.getItem("token")) {
+          await fetchUser();
+          await dashboardData();
+          await fetchExpenses();
+        } else {
+          hideLoading();
+          navigate("/login");
+          return;
+        }
+      } catch (error) {
+        console.error("Error loading income data in Income.jsx:", error);
+      } finally {
+        hideLoading();
+      }
+    };
+    loadAllIncomeRelatedData();
   }, []);
+
   return (
     <div className="pt-14 sm:pt-16">
-      <div className="grid grid-cols-1 gap-6 max-sm:gap-3">
-        <ExpenseOverview transactions={transactions} addExpense={addExpense} />
-        <ExpenseList
-          transactions={transactions}
-          deleteExpense={deleteExpense}
-        />
-      </div>
+      {!isLoading && (
+        <div className="grid grid-cols-1 gap-6 max-sm:gap-3">
+          <ExpenseOverview
+            transactions={transactions}
+            addExpense={addExpense}
+          />
+          <ExpenseList
+            transactions={transactions}
+            deleteExpense={deleteExpense}
+          />
+        </div>
+      )}
     </div>
   );
 };

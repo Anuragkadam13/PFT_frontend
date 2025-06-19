@@ -16,7 +16,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const context = useContext(UserContext);
   const loadContext = useContext(LoadingContext);
-  const { showLoading, hideLoading } = loadContext;
+  const { showLoading, hideLoading, isLoading } = loadContext;
   const { fetchUser, user, dashboardData, dashboarddata } = context;
   useEffect(() => {
     const loadDashboardData = async () => {
@@ -47,7 +47,7 @@ const Dashboard = () => {
 
   return (
     <div className="pt-14 sm:pt-16">
-      {hasFinancialData ? (
+      {!isLoading && hasFinancialData ? (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-sm:gap-3 ">
             {/* Net Balance */}
