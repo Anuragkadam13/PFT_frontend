@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -31,8 +31,11 @@ import moment from "moment";
 import CustomBarChart from "../customComponents/CustomBarChart";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
+import LoadingContext from "@/context/Loader/LoadingContext";
 
 const IncomeOverview = ({ transactions, addIncome }) => {
+  const loadContext = useContext(LoadingContext);
+  const { showLoading, hideLoading } = loadContext;
   const [chartData, setchartData] = useState([]);
   const [open, setOpen] = useState(false);
   const [income, setIncome] = useState({
@@ -63,16 +66,24 @@ const IncomeOverview = ({ transactions, addIncome }) => {
   const onChange = (e) => {
     setIncome({ ...income, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addIncome(income.source, income.amount, income.date);
-    setIncome({
-      source: "",
-      amount: "",
-      date: new Date(),
-    });
-    refClose.current.click();
-    toast.success("Income Added");
+    showLoading();
+    try {
+      await addIncome(income.source, income.amount, income.date);
+      setIncome({
+        source: "",
+        amount: "",
+        date: new Date(),
+      });
+      refClose.current.click();
+      toast.success("Income Added");
+    } catch (error) {
+      console.error("Error adding income:", error);
+      toast.error("Failed to add income. Please try again.");
+    } finally {
+      hideLoading();
+    }
   };
   return (
     <div className="h-full grid">
@@ -169,7 +180,7 @@ const IncomeOverview = ({ transactions, addIncome }) => {
           </CardAction>
         </CardHeader>
         <CardContent>
-          {chartData.length != 0 ? (
+          {chartData.length !== 0 ? (
             <CustomBarChart data={chartData} color="var(--chart-2)" />
           ) : (
             <h1 className="mb-5 ">
