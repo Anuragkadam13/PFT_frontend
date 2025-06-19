@@ -40,14 +40,10 @@ const Dashboard = () => {
     loadDashboardData();
   }, []);
 
-  if (!user || !dashboarddata) {
-    return null;
-  }
-
   const hasFinancialData =
-    dashboarddata.totalBalance ||
-    dashboarddata.totalExpense ||
-    dashboarddata.totalIncome;
+    dashboarddata?.totalBalance ||
+    dashboarddata?.totalExpense ||
+    dashboarddata?.totalIncome;
 
   return (
     <div className="pt-14 sm:pt-16">
