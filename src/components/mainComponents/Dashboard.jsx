@@ -38,7 +38,7 @@ const Dashboard = () => {
     };
 
     loadDashboardData();
-  }, [fetchUser, dashboardData, navigate, showLoading, hideLoading]);
+  }, []);
 
   if (!user || !dashboarddata) {
     return null;
