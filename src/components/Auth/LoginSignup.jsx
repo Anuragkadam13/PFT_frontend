@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -12,8 +12,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import LoadingContext from "@/context/Loader/LoadingContext";
 
 const LoginSignup = () => {
+  const loadContext = useContext(LoadingContext);
+  const { showLoading, hideLoading, isLoading } = loadContext;
   const [credentials, setcredentials] = useState({ email: "", password: "" });
   const [registerCredentials, setregisterCredentials] = useState({
     name: "",
@@ -40,56 +43,73 @@ const LoginSignup = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    showLoading();
 
-    const response = await fetch(
-      "https://pft-backend-wine.vercel.app/api/auth/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: credentials.email,
-          password: credentials.password,
-        }),
+    try {
+      const response = await fetch(
+        "https://pft-backend-wine.vercel.app/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: credentials.email,
+            password: credentials.password,
+          }),
+        }
+      );
+      const json = await response.json();
+
+      if (json.success) {
+        // Save the auth token and redirect
+        localStorage.setItem("token", json.authToken);
+        navigate("/");
+        toast.success("Logged In Successfully");
+      } else {
+        toast.error("Invalid Credentials");
       }
-    );
-    const json = await response.json();
-    if (json.success) {
-      //Save the auth token and redirect
-      localStorage.setItem("token", json.authToken);
-      toast.success("Logged In Successfully");
-      navigate("/");
-    } else {
-      toast.error("Invalid Credentials");
+    } catch (error) {
+      console.error("Login failed:", error);
+      toast.error("Login failed. Please check your network connection.");
+    } finally {
+      hideLoading();
     }
   };
   const handleRegister = async (e) => {
     e.preventDefault();
+    showLoading();
 
-    const response = await fetch(
-      "https://pft-backend-wine.vercel.app/api/auth/createUser",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: registerCredentials.name,
-          email: registerCredentials.email,
-          password: registerCredentials.password,
-        }),
+    try {
+      const response = await fetch(
+        "https://pft-backend-wine.vercel.app/api/auth/createUser",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: registerCredentials.name,
+            email: registerCredentials.email,
+            password: registerCredentials.password,
+          }),
+        }
+      );
+      const json = await response.json();
+
+      if (json.success) {
+        // Save the auth token and redirect
+        localStorage.setItem("token", json.authToken);
+        navigate("/");
+        toast.success("Account Created");
+      } else {
+        toast.error(json.error || "Registration failed. Please try again.");
       }
-    );
-    const json = await response.json();
-    console.log(json);
-    if (json.success) {
-      //Save the auth token and redirect
-      localStorage.setItem("token", json.authToken);
-      navigate("/");
-      toast.success("Account Created");
-    } else {
-      toast.error(json.error);
+    } catch (error) {
+      console.error("Registration failed:", error);
+      toast.error("Registration failed. Please check your network connection.");
+    } finally {
+      hideLoading();
     }
   };
   return (
