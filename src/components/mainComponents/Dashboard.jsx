@@ -47,7 +47,7 @@ const Dashboard = () => {
 
   return (
     <div className="pt-14 sm:pt-16">
-      {!isLoading && hasFinancialData ? (
+      {!isLoading && hasFinancialData && (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-sm:gap-3 ">
             {/* Net Balance */}
@@ -124,7 +124,8 @@ const Dashboard = () => {
             />
           </div>
         </>
-      ) : (
+      )}
+      {!isLoading && !hasFinancialData && (
         <div className="flex flex-col items-center justify-center py-8 gap-2">
           <h1 className="text-2xl font-medium">
             A Fresh Start for Your Finances
