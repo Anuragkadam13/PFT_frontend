@@ -48,78 +48,82 @@ const Dashboard = () => {
   return (
     <div className="pt-14 sm:pt-16">
       {hasFinancialData ? (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-sm:gap-3 ">
-          {/* Net Balance */}
-          <div className="px-4 py-2 bg-green-100 border border-green-300 rounded-lg shadow flex items-center gap-4">
-            <div className="rounded-full bg-green-700 text-white p-3">
-              <Wallet />
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-sm:gap-3 ">
+            {/* Net Balance */}
+            <div className="px-4 py-2 bg-green-100 border border-green-300 rounded-lg shadow flex items-center gap-4">
+              <div className="rounded-full bg-green-700 text-white p-3">
+                <Wallet />
+              </div>
+              <div>
+                <h2 className="text-md font-semibold text-green-700">
+                  Total Balance
+                </h2>
+                <p className="text-xl font-bold text-green-800">
+                  ₹{dashboarddata.totalBalance}
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-md font-semibold text-green-700">
-                Total Balance
-              </h2>
-              <p className="text-xl font-bold text-green-800">
-                ₹{dashboarddata.totalBalance}
-              </p>
-            </div>
-          </div>
 
-          {/* Total Income */}
-          <div className="px-4 py-2 bg-blue-100 border border-blue-300 rounded-lg shadow flex items-center gap-4">
-            <div className="rounded-full bg-blue-700 text-white p-3">
-              <WalletMinimal />
+            {/* Total Income */}
+            <div className="px-4 py-2 bg-blue-100 border border-blue-300 rounded-lg shadow flex items-center gap-4">
+              <div className="rounded-full bg-blue-700 text-white p-3">
+                <WalletMinimal />
+              </div>
+              <div>
+                <h2 className="text-md font-semibold text-blue-700">
+                  Total Income
+                </h2>
+                <p className="text-xl font-bold text-blue-800">
+                  ₹{dashboarddata.totalIncome}
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-md font-semibold text-blue-700">
-                Total Income
-              </h2>
-              <p className="text-xl font-bold text-blue-800">
-                ₹{dashboarddata.totalIncome}
-              </p>
-            </div>
-          </div>
 
-          {/* Total Expenses */}
-          <div className="px-4 py-2 bg-red-100 border border-red-300 rounded-lg shadow flex items-center gap-4">
-            <div className="rounded-full bg-red-700 text-white p-3">
-              <HandCoins />
-            </div>
-            <div>
-              <h2 className="text-md font-semibold text-red-700">
-                Total Expense
-              </h2>
-              <p className="text-xl font-bold text-red-800">
-                ₹{dashboarddata.totalExpense}
-              </p>
+            {/* Total Expenses */}
+            <div className="px-4 py-2 bg-red-100 border border-red-300 rounded-lg shadow flex items-center gap-4">
+              <div className="rounded-full bg-red-700 text-white p-3">
+                <HandCoins />
+              </div>
+              <div>
+                <h2 className="text-md font-semibold text-red-700">
+                  Total Expense
+                </h2>
+                <p className="text-xl font-bold text-red-800">
+                  ₹{dashboarddata.totalExpense}
+                </p>
+              </div>
             </div>
           </div>
-          <RecentTransactions
-            transactions={dashboarddata?.recentTransactions}
-            onSeeMore={() => navigate("/expense")}
-          />
-          <FinanceOverview
-            totalBalance={dashboarddata?.totalBalance || 0}
-            totalIncome={dashboarddata?.totalIncome || 0}
-            totalExpense={dashboarddata?.totalExpense || 0}
-          />
-          <ExpenseTransactions
-            transactions={dashboarddata?.last30DaysExpense.transactions}
-            onSeeMore={() => navigate("/expense")}
-          />
-          <Last30DaysExpenses
-            data={dashboarddata?.last30DaysExpense?.transactions || []}
-          />
-          <Last60daysIncome
-            data={
-              dashboarddata?.last60DaysIncome?.transactions?.slice(0, 4) || []
-            }
-            totalIncome={dashboarddata?.totalIncome || 0}
-          />
-          <RecentIncomes
-            transactions={dashboarddata?.last60DaysIncome?.transactions || []}
-            onSeeMore={() => navigate("/income")}
-          />
-        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-sm:gap-3 ">
+            <RecentTransactions
+              transactions={dashboarddata?.recentTransactions}
+              onSeeMore={() => navigate("/expense")}
+            />
+            <FinanceOverview
+              totalBalance={dashboarddata?.totalBalance || 0}
+              totalIncome={dashboarddata?.totalIncome || 0}
+              totalExpense={dashboarddata?.totalExpense || 0}
+            />
+            <ExpenseTransactions
+              transactions={dashboarddata?.last30DaysExpense.transactions}
+              onSeeMore={() => navigate("/expense")}
+            />
+            <Last30DaysExpenses
+              data={dashboarddata?.last30DaysExpense?.transactions || []}
+            />
+            <Last60daysIncome
+              data={
+                dashboarddata?.last60DaysIncome?.transactions?.slice(0, 4) || []
+              }
+              totalIncome={dashboarddata?.totalIncome || 0}
+            />
+            <RecentIncomes
+              transactions={dashboarddata?.last60DaysIncome?.transactions || []}
+              onSeeMore={() => navigate("/income")}
+            />
+          </div>
+        </>
       ) : (
         <div className="flex flex-col items-center justify-center py-8 gap-2">
           <h1 className="text-2xl font-medium">
