@@ -95,7 +95,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-sm:gap-3 mt-2 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-sm:gap-3 mt-4 ">
             <RecentTransactions
               transactions={dashboarddata?.recentTransactions}
               onSeeMore={() => navigate("/expense")}
