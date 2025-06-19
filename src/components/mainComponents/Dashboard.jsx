@@ -125,7 +125,7 @@ const Dashboard = () => {
           </div>
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center py-8 gap-2">
+        <div className="flex flex-col items-center justify-center py-8 gap-2 mt-2">
           <h1 className="text-2xl font-medium">
             A Fresh Start for Your Finances
           </h1>
