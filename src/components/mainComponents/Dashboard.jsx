@@ -125,32 +125,37 @@ const Dashboard = () => {
           </div>
         </>
       )}
-      {!isLoading && !hasFinancialData && (
-        <div className="flex flex-col items-center justify-center py-8 gap-2">
-          <h1 className="text-2xl font-medium">
-            A Fresh Start for Your Finances
-          </h1>
-          <img
-            src={emptyBGImg}
-            alt="No data available"
-            className="w-72 md:w-100 h-auto opacity-80"
-          />
-          <p className="text-md text-gray-600 text-center">
-            No data found yet. Let's populate this space with your income and
-            expenses to give you a clear overview. <br />
-            Start tracking by adding a new transaction.{" "}
-            <Button
-              variant="link"
-              className="px-1 text-sm"
-              onClick={() => {
-                navigate("/income");
-              }}
-            >
-              Get started
-            </Button>
-          </p>
-        </div>
-      )}
+      {!isLoading &&
+        !(
+          dashboarddata?.totalBalance ||
+          dashboarddata?.totalExpense ||
+          dashboarddata?.totalIncome
+        ) && (
+          <div className="flex flex-col items-center justify-center py-8 gap-2">
+            <h1 className="text-2xl font-medium">
+              A Fresh Start for Your Finances
+            </h1>
+            <img
+              src={emptyBGImg}
+              alt="No data available"
+              className="w-72 md:w-100 h-auto opacity-80"
+            />
+            <p className="text-md text-gray-600 text-center">
+              No data found yet. Let's populate this space with your income and
+              expenses to give you a clear overview. <br />
+              Start tracking by adding a new transaction.{" "}
+              <Button
+                variant="link"
+                className="px-1 text-sm"
+                onClick={() => {
+                  navigate("/income");
+                }}
+              >
+                Get started
+              </Button>
+            </p>
+          </div>
+        )}
     </div>
   );
 };
