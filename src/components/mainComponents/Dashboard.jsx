@@ -95,7 +95,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-sm:gap-3 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-sm:gap-3 mt-2 ">
             <RecentTransactions
               transactions={dashboarddata?.recentTransactions}
               onSeeMore={() => navigate("/expense")}
@@ -125,7 +125,7 @@ const Dashboard = () => {
           </div>
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center py-8 gap-2 mt-2">
+        <div className="flex flex-col items-center justify-center py-8 gap-2">
           <h1 className="text-2xl font-medium">
             A Fresh Start for Your Finances
           </h1>
