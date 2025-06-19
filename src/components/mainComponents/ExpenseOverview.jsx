@@ -86,115 +86,109 @@ const ExpenseOverview = ({ transactions, addExpense }) => {
 
   return (
     <div className="h-full grid">
-      {!isLoading && (
-        <Card className="pb-0">
-          <CardHeader>
-            <CardTitle>Expense Overview</CardTitle>
-            <CardDescription>
-              Track your spending trends over time and gain insights into where
-              your money goes.
-            </CardDescription>
-            <CardAction>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="secondary" className="gap-1">
-                    <Plus />
-                    Add expense
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Add Expense</DialogTitle>
-                  </DialogHeader>
-                  <form onSubmit={handleSubmit}>
-                    <div className="grid gap-4">
-                      <div className="grid gap-1">
-                        <Label htmlFor="category">Expense category</Label>
-                        <Input
-                          value={expense.category}
-                          onChange={onChange}
-                          id="category"
-                          name="category"
-                          required
-                          placeholder="Category"
-                        />
-                      </div>
-                      <div className="grid gap-1">
-                        <Label htmlFor="amount">Amount</Label>
-                        <Input
-                          type="number"
-                          value={expense.amount}
-                          onChange={onChange}
-                          id="amount"
-                          name="amount"
-                          placeholder="Amount"
-                          required
-                        />
-                      </div>
-                      <div className="grid gap-1">
-                        <Label htmlFor="date" className="px-1">
-                          Date
-                        </Label>
-                        <Popover open={open} onOpenChange={setOpen}>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              id="date"
-                              className="w-48 justify-between font-normal"
-                            >
-                              {expense.date
-                                ? moment(expense.date).format("DD/MM/YYYY")
-                                : "Select date"}
-                              <ChevronDownIcon />
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent
-                            className="w-auto overflow-hidden p-0"
-                            align="start"
-                          >
-                            <Calendar
-                              mode="single"
-                              selected={expense.date}
-                              captionLayout="dropdown"
-                              onSelect={(date) => {
-                                setExpense({ ...expense, date: date });
-                                setOpen(false);
-                              }}
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </div>
+      <Card className="pb-0">
+        <CardHeader>
+          <CardTitle>Expense Overview</CardTitle>
+          <CardDescription>
+            Track your spending trends over time and gain insights into where
+            your money goes.
+          </CardDescription>
+          <CardAction>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="secondary" className="gap-1">
+                  <Plus />
+                  Add expense
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Add Expense</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleSubmit}>
+                  <div className="grid gap-4">
+                    <div className="grid gap-1">
+                      <Label htmlFor="category">Expense category</Label>
+                      <Input
+                        value={expense.category}
+                        onChange={onChange}
+                        id="category"
+                        name="category"
+                        required
+                        placeholder="Category"
+                      />
                     </div>
-                    <Button type="submit" className="w-full mt-4">
-                      Add
+                    <div className="grid gap-1">
+                      <Label htmlFor="amount">Amount</Label>
+                      <Input
+                        type="number"
+                        value={expense.amount}
+                        onChange={onChange}
+                        id="amount"
+                        name="amount"
+                        placeholder="Amount"
+                        required
+                      />
+                    </div>
+                    <div className="grid gap-1">
+                      <Label htmlFor="date" className="px-1">
+                        Date
+                      </Label>
+                      <Popover open={open} onOpenChange={setOpen}>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            id="date"
+                            className="w-48 justify-between font-normal"
+                          >
+                            {expense.date
+                              ? moment(expense.date).format("DD/MM/YYYY")
+                              : "Select date"}
+                            <ChevronDownIcon />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent
+                          className="w-auto overflow-hidden p-0"
+                          align="start"
+                        >
+                          <Calendar
+                            mode="single"
+                            selected={expense.date}
+                            captionLayout="dropdown"
+                            onSelect={(date) => {
+                              setExpense({ ...expense, date: date });
+                              setOpen(false);
+                            }}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  </div>
+                  <Button type="submit" className="w-full mt-4">
+                    Add
+                  </Button>
+                </form>
+                <DialogFooter className="hidden">
+                  <DialogClose asChild>
+                    <Button variant="outline" className="hidden" ref={refClose}>
+                      Cancel
                     </Button>
-                  </form>
-                  <DialogFooter className="hidden">
-                    <DialogClose asChild>
-                      <Button
-                        variant="outline"
-                        className="hidden"
-                        ref={refClose}
-                      >
-                        Cancel
-                      </Button>
-                    </DialogClose>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-            </CardAction>
-          </CardHeader>
-          <CardContent>
-            {chartData.length != 0 ? (
-              <CustomLineChart data={chartData} color="var(--chart-1)" />
-            ) : (
-              <h1 className="mb-5">
-                No data available, please add some transaction to proceed
-              </h1>
-            )}
-          </CardContent>
-        </Card>
-      )}
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </CardAction>
+        </CardHeader>
+        <CardContent>
+          {chartData.length != 0 ? (
+            <CustomLineChart data={chartData} color="var(--chart-1)" />
+          ) : (
+            <h1 className="mb-5">
+              No data available, please add some transaction to proceed
+            </h1>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 };
