@@ -28,6 +28,7 @@ const Dashboard = () => {
         } else {
           hideLoading();
           navigate("/login");
+          return;
         }
       } catch (error) {
         console.error("Error loading dashboard data:", error);
