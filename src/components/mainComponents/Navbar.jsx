@@ -7,18 +7,23 @@ import {
   X,
 } from "lucide-react";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import React, { useState } from "react";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import logo from "@/assets/logo.png";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import UserContext from "@/context/user/UserContext";
 
 const Navbar = () => {
+  const context = useContext(UserContext);
+  const { user } = context;
   const menuItems = [
     {
       id: "1",
@@ -50,6 +55,7 @@ const Navbar = () => {
     toast.success("Logged Out Successfully");
     navigate("/login");
   };
+
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="fixed w-full z-10  ">
@@ -67,46 +73,38 @@ const Navbar = () => {
         {localStorage.getItem("token") ? (
           <div>
             <div className="flex md:hidden items-center">
-              <Popover onOpenChange={setIsOpen}>
-                <PopoverTrigger className="hover:cursor-pointer border-2  rounded">
+              <DropdownMenu onOpenChange={setIsOpen}>
+                <DropdownMenuTrigger asChild>
                   {!isOpen ? (
                     <Menu className="w-fit h-7" />
                   ) : (
                     <X className="w-fit h-7" />
                   )}
-                </PopoverTrigger>
-                <PopoverContent className="md:hidden gap-2 flex flex-col">
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="start">
                   {menuItems.map((item) => {
                     return item.name == "Logout" ? (
                       <div>
-                        <Separator className="mb-2" />
-                        <Button
-                          className="hover:cursor-pointer w-full"
-                          variant="secondary"
-                          onClick={handleLogout}
-                          key={item.id}
-                        >
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={handleLogout} key={item.id}>
                           {item.icon}
                           {item.name}
-                        </Button>
+                        </DropdownMenuItem>
                       </div>
                     ) : (
-                      <NavLink
-                        to={item.link}
+                      <DropdownMenuItem
                         key={item.id}
-                        className={({ isActive }) =>
-                          isActive
-                            ? "flex gap-4 text-white bg-blue-500 px-4 py-2 rounded-md"
-                            : "flex gap-4 px-4 py-2"
-                        }
+                        onClick={() => navigate(item.link)}
                       >
                         {item.icon}
                         {item.name}
-                      </NavLink>
+                      </DropdownMenuItem>
                     );
                   })}
-                </PopoverContent>
-              </Popover>
+                  <DropdownMenuItem>Income</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
             <div className="hidden md:flex justify-center items-center">
               {menuItems.map((item) => {
