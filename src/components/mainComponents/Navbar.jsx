@@ -81,7 +81,7 @@ const Navbar = () => {
                     <X className="w-fit h-7" />
                   )}
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent className="w-56" align="start">
                   {menuItems.map((item) => {
                     return item.name == "Logout" ? (
                       <div>
