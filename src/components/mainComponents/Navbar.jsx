@@ -81,12 +81,16 @@ const Navbar = () => {
                     <X className="w-fit h-7" />
                   )}
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="start">
+                <DropdownMenuContent className="w-64" align="start">
                   {menuItems.map((item) => {
                     return item.name == "Logout" ? (
                       <div>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={handleLogout} key={item.id}>
+                        <DropdownMenuItem
+                          onClick={handleLogout}
+                          key={item.id}
+                          className="text-base"
+                        >
                           {item.icon}
                           {item.name}
                         </DropdownMenuItem>
@@ -95,6 +99,7 @@ const Navbar = () => {
                       <DropdownMenuItem
                         key={item.id}
                         onClick={() => navigate(item.link)}
+                        className="text-base"
                       >
                         {item.icon}
                         {item.name}
