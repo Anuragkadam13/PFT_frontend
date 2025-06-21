@@ -28,25 +28,25 @@ const Navbar = () => {
     {
       id: "1",
       name: "Dashboard",
-      icon: <LayoutDashboard />,
+      icon: <LayoutDashboard className="text-base" />,
       link: "/",
     },
     {
       id: "2",
       name: "Income",
-      icon: <BanknoteArrowUp />,
+      icon: <BanknoteArrowUp className="text-base" />,
       link: "/income",
     },
     {
       id: "3",
       name: "Expense",
-      icon: <BanknoteArrowDown />,
+      icon: <BanknoteArrowDown className="text-base" />,
       link: "/expense",
     },
     {
       id: "4",
       name: "Logout",
-      icon: <LogOut />,
+      icon: <LogOut className="text-base" />,
     },
   ];
   let navigate = useNavigate();
