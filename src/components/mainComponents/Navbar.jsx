@@ -101,8 +101,6 @@ const Navbar = () => {
                       </DropdownMenuItem>
                     );
                   })}
-                  <DropdownMenuItem>Income</DropdownMenuItem>
-                  <DropdownMenuSeparator />
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
