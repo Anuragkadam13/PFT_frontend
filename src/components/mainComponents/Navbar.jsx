@@ -18,7 +18,6 @@ import { NavLink, useNavigate } from "react-router";
 import logo from "@/assets/logo.png";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
 import UserContext from "@/context/user/UserContext";
 
 const Navbar = () => {
