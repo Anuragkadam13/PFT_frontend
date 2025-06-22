@@ -3,7 +3,7 @@
 @import "tw-animate-css";
 
 * {
-  font-family: "Inter", "Geist", sans-serif;
+  font-family: "Geist", sans-serif;
 }
 
 @custom-variant dark (&:is(.dark *));
