@@ -47,11 +47,13 @@ const Dashboard = () => {
     dashboarddata?.totalIncome;
 
   const displayTotalBalance = formatAbbreviatedNumber(
-    dashboarddata.totalBalance
+    dashboarddata?.totalBalance
   );
-  const displayTotalIncome = formatAbbreviatedNumber(dashboarddata.totalIncome);
+  const displayTotalIncome = formatAbbreviatedNumber(
+    dashboarddata?.totalIncome
+  );
   const displayTotalExpense = formatAbbreviatedNumber(
-    dashboarddata.totalExpense
+    dashboarddata?.totalExpense
   );
 
   return (
