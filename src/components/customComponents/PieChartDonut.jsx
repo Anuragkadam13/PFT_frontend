@@ -8,12 +8,14 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { formatAbbreviatedNumber } from "@/utils/numberFormatter";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import CustomTooltip from "./CustomTooltip";
 import CustomLegend from "./CustomLegend";
 
 const PieChartDonut = ({ data, title, label, totalAmount, colors }) => {
+  const displayTotalBalance = formatAbbreviatedNumber(totalAmount);
   return (
     <div className="h-full grid">
       <Card className="flex flex-col gap-0 md:gap-3 ">
@@ -45,7 +47,7 @@ const PieChartDonut = ({ data, title, label, totalAmount, colors }) => {
                             y={viewBox.cy}
                             className="fill-foreground text-2xl font-bold"
                           >
-                            ₹{totalAmount}
+                            ₹{displayTotalBalance}
                           </tspan>
                           <tspan
                             x={viewBox.cx}
