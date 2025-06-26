@@ -13,6 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { formatAbbreviatedNumber } from "../utils/NumberFormatter";
 
 const TransactionInfoCard = ({
   title,
@@ -27,6 +28,8 @@ const TransactionInfoCard = ({
       ? "bg-green-50 text-green-600"
       : "bg-red-50 text-red-600";
   };
+
+  const displayAmount = formatAbbreviatedNumber(amount);
   return (
     <div>
       <Card className="mt-2 py-2 border-0 shadow-none bg-neutral-50">
@@ -45,7 +48,7 @@ const TransactionInfoCard = ({
                 ) : (
                   <Minus size={12} strokeWidth={2.5} />
                 )}{" "}
-                ₹{amount}
+                ₹{displayAmount}
               </h6>
               {type === "income" ? (
                 <TrendingUp className="h-4" />

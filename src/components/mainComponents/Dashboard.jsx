@@ -11,6 +11,7 @@ import Last60daysIncome from "./Last60daysIncome";
 import RecentIncomes from "./RecentIncomes";
 import { Button } from "../ui/button";
 import LoadingContext from "@/context/Loader/LoadingContext";
+import { formatAbbreviatedNumber } from "../utils/NumberFormatter";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -45,6 +46,14 @@ const Dashboard = () => {
     dashboarddata?.totalExpense ||
     dashboarddata?.totalIncome;
 
+  const displayTotalBalance = formatAbbreviatedNumber(
+    dashboarddata.totalBalance
+  );
+  const displayTotalIncome = formatAbbreviatedNumber(dashboarddata.totalIncome);
+  const displayTotalExpense = formatAbbreviatedNumber(
+    dashboarddata.totalExpense
+  );
+
   return (
     <div className="pt-14 sm:pt-16">
       {!isLoading && hasFinancialData ? (
@@ -60,7 +69,7 @@ const Dashboard = () => {
                   Total Balance
                 </h2>
                 <p className="text-xl font-bold text-green-800">
-                  ₹{dashboarddata.totalBalance}
+                  ₹{displayTotalBalance}
                 </p>
               </div>
             </div>
@@ -75,7 +84,7 @@ const Dashboard = () => {
                   Total Income
                 </h2>
                 <p className="text-xl font-bold text-blue-800">
-                  ₹{dashboarddata.totalIncome}
+                  ₹{displayTotalIncome}
                 </p>
               </div>
             </div>
@@ -90,7 +99,7 @@ const Dashboard = () => {
                   Total Expense
                 </h2>
                 <p className="text-xl font-bold text-red-800">
-                  ₹{dashboarddata.totalExpense}
+                  ₹{displayTotalExpense}
                 </p>
               </div>
             </div>
