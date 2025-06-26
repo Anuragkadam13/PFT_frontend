@@ -67,8 +67,7 @@ const LoginSignup = () => {
         navigate("/");
         toast.success("Logged In Successfully");
       } else {
-        console.log(json.error);
-        toast.error(json.error || "Invalid Credentials");
+        toast.error("Invalid Credentials");
       }
     } catch (error) {
       console.error("Login failed:", error);
@@ -104,8 +103,7 @@ const LoginSignup = () => {
         navigate("/");
         toast.success("Account Created");
       } else {
-        console.log(json.error);
-        toast.error(json.error || "Registration failed. Please try again.");
+        toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
       console.error("Registration failed:", error);
@@ -185,6 +183,7 @@ const LoginSignup = () => {
                         id="name"
                         type="text"
                         placeholder="Enter name"
+                        minLength={5}
                         required
                       />
                     </div>
@@ -209,6 +208,7 @@ const LoginSignup = () => {
                         id="password"
                         placeholder="Enter password"
                         type="password"
+                        minLength={8}
                         required
                       />
                     </div>
