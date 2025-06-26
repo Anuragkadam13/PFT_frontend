@@ -67,7 +67,8 @@ const LoginSignup = () => {
         navigate("/");
         toast.success("Logged In Successfully");
       } else {
-        toast.error("Invalid Credentials");
+        console.log(json.error);
+        toast.error(json.error || "Invalid Credentials");
       }
     } catch (error) {
       console.error("Login failed:", error);
@@ -103,6 +104,7 @@ const LoginSignup = () => {
         navigate("/");
         toast.success("Account Created");
       } else {
+        console.log(json.error);
         toast.error(json.error || "Registration failed. Please try again.");
       }
     } catch (error) {
