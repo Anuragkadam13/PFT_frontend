@@ -8,7 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { formatAbbreviatedNumber } from "@/utils/numberFormatter";
+import { formatAbbreviatedNumber } from "../utils/NumberFormatter";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import CustomTooltip from "./CustomTooltip";
