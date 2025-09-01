@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 import LoadingContext from "@/context/Loader/LoadingContext";
 import { formatAbbreviatedNumber } from "../utils/NumberFormatter";
 import expenseContext from "@/context/expense/ExpenseContext";
+import incomeContext from "@/context/income/IncomeContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -22,6 +23,9 @@ const Dashboard = () => {
   const { fetchUser, user, dashboardData, dashboarddata } = context;
   const contextExpense = useContext(expenseContext);
   const { fetchExpenses, transactions } = contextExpense;
+  const contextIncome = useContext(incomeContext);
+  const { incomeTransactions, fetchIncomes } = contextIncome;
+
   useEffect(() => {
     const loadDashboardData = async () => {
       showLoading();
@@ -30,6 +34,7 @@ const Dashboard = () => {
           await fetchUser();
           await dashboardData();
           await fetchExpenses();
+          await fetchIncomes();
         } else {
           hideLoading();
           navigate("/login");
@@ -134,7 +139,7 @@ const Dashboard = () => {
               totalIncome={dashboarddata?.totalIncome || 0}
             />
             <RecentIncomes
-              transactions={dashboarddata?.last60DaysIncome?.transactions || []}
+              transactions={incomeTransactions}
               onSeeMore={() => navigate("/income")}
             />
           </div>

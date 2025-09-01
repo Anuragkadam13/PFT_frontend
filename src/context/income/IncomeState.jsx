@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import incomeContext from "./IncomeContext";
 
 const IncomeState = (props) => {
-  const [transactions, setTransactions] = useState([]);
+  const [incomeTransactions, setTransactions] = useState([]);
 
   //Fetch all Incomes
   const fetchIncomes = async () => {
@@ -45,7 +45,7 @@ const IncomeState = (props) => {
     );
 
     const income = await response.json();
-    setTransactions(transactions.concat(income));
+    setTransactions(incomeTransactions.concat(income));
     fetchIncomes();
   };
 
@@ -63,7 +63,7 @@ const IncomeState = (props) => {
       }
     );
     const json = response.json();
-    const newTransactions = transactions.filter((transaction) => {
+    const newTransactions = incomeTransactions.filter((transaction) => {
       return transaction._id !== id;
     });
     setTransactions(newTransactions);
@@ -71,7 +71,7 @@ const IncomeState = (props) => {
   };
   return (
     <incomeContext.Provider
-      value={{ transactions, addIncome, fetchIncomes, deleteIncome }}
+      value={{ incomeTransactions, addIncome, fetchIncomes, deleteIncome }}
     >
       {props.children}
     </incomeContext.Provider>

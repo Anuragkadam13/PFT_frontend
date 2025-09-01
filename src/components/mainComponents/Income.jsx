@@ -10,7 +10,8 @@ const Income = () => {
   const context = useContext(UserContext);
   const { fetchUser, dashboardData } = context;
   const contextIncome = useContext(incomeContext);
-  const { transactions, addIncome, fetchIncomes, deleteIncome } = contextIncome;
+  const { incomeTransactions, addIncome, fetchIncomes, deleteIncome } =
+    contextIncome;
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -24,8 +25,14 @@ const Income = () => {
   return (
     <div className="pt-14 sm:pt-16">
       <div className="grid grid-cols-1 gap-6 max-sm:gap-3">
-        <IncomeOverview transactions={transactions} addIncome={addIncome} />
-        <IncomeList transactions={transactions} deleteIncome={deleteIncome} />
+        <IncomeOverview
+          transactions={incomeTransactions}
+          addIncome={addIncome}
+        />
+        <IncomeList
+          transactions={incomeTransactions}
+          deleteIncome={deleteIncome}
+        />
       </div>
     </div>
   );
