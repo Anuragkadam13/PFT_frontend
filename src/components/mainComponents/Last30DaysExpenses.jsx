@@ -21,12 +21,12 @@ const Last30DaysExpenses = ({ data = [] }) => {
   return (
     <div className="h-full grid">
       <Card className="pb-0">
-        <CardHeader>
+        <CardHeader className="pb-0">
           <CardTitle>Last 30 Days Expenses</CardTitle>
         </CardHeader>
         <CardContent>
           {data?.length === 0 ? (
-            <h1 className="mb-2">No transactions done in last 30 days.</h1>
+            <h1 className="my-1">No transactions done in last 30 days.</h1>
           ) : (
             <CustomBarChart data={chartData} color="var(--chart-1)" />
           )}
