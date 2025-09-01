@@ -25,51 +25,55 @@ const PieChartDonut = ({ data, title, label, totalAmount, colors }) => {
         <CardContent className="flex-1 pb-0">
           <ResponsiveContainer width="100%" height={300}>
             {data?.length === 0 ? (
-              <h1>No incomes added in last 60 days</h1>
+              <h1 className="mt-1">No incomes added in last 60 days</h1>
             ) : (
-              ""
-            )}
-            <PieChart>
-              <Pie data={data} dataKey="amount" nameKey="name" innerRadius={75}>
-                {data.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={colors[index % colors.length]}
-                  />
-                ))}
-                <Label
-                  content={({ viewBox }) => {
-                    if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                      return (
-                        <text
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          textAnchor="middle"
-                          dominantBaseline="middle"
-                        >
-                          <tspan
+              <PieChart>
+                <Pie
+                  data={data}
+                  dataKey="amount"
+                  nameKey="name"
+                  innerRadius={75}
+                >
+                  {data.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={colors[index % colors.length]}
+                    />
+                  ))}
+                  <Label
+                    content={({ viewBox }) => {
+                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                        return (
+                          <text
                             x={viewBox.cx}
                             y={viewBox.cy}
-                            className="fill-foreground text-2xl font-bold"
+                            textAnchor="middle"
+                            dominantBaseline="middle"
                           >
-                            ₹{displayTotalBalance}
-                          </tspan>
-                          <tspan
-                            x={viewBox.cx}
-                            y={(viewBox.cy || 0) + 24}
-                            className="text-sm font-medium fill-muted-foreground"
-                          >
-                            {label}
-                          </tspan>
-                        </text>
-                      );
-                    }
-                  }}
-                />
-              </Pie>
-              <Tooltip content={<CustomTooltip />} />
-              <Legend content={<CustomLegend />} />
-            </PieChart>
+                            <tspan
+                              x={viewBox.cx}
+                              y={viewBox.cy}
+                              className="fill-foreground text-2xl font-bold"
+                            >
+                              ₹{displayTotalBalance}
+                            </tspan>
+                            <tspan
+                              x={viewBox.cx}
+                              y={(viewBox.cy || 0) + 24}
+                              className="text-sm font-medium fill-muted-foreground"
+                            >
+                              {label}
+                            </tspan>
+                          </text>
+                        );
+                      }
+                    }}
+                  />
+                </Pie>
+                <Tooltip content={<CustomTooltip />} />
+                <Legend content={<CustomLegend />} />
+              </PieChart>
+            )}
           </ResponsiveContainer>
         </CardContent>
       </Card>
