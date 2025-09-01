@@ -20,7 +20,7 @@ const Last30DaysExpenses = ({ data = [] }) => {
 
   return (
     <div className="h-full grid">
-      <Card className="pb-0">
+      <Card>
         <CardHeader className="pb-0">
           <CardTitle>Last 30 Days Expenses</CardTitle>
         </CardHeader>
