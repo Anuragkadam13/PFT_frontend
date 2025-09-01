@@ -24,6 +24,11 @@ const PieChartDonut = ({ data, title, label, totalAmount, colors }) => {
         </CardHeader>
         <CardContent className="flex-1 pb-0">
           <ResponsiveContainer width="100%" height={300}>
+            {data?.length === 0 ? (
+              <h1>No incomes added in last 60 days</h1>
+            ) : (
+              ""
+            )}
             <PieChart>
               <Pie data={data} dataKey="amount" nameKey="name" innerRadius={75}>
                 {data.map((entry, index) => (
