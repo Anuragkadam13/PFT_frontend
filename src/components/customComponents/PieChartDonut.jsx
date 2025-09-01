@@ -23,10 +23,10 @@ const PieChartDonut = ({ data, title, label, totalAmount, colors }) => {
           <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent className="flex-1 pb-0">
-          <ResponsiveContainer width="100%" height={300}>
-            {data?.length === 0 ? (
-              <h1 className="mt-1">No incomes added in last 60 days</h1>
-            ) : (
+          {data?.length === 0 ? (
+            <h1 className="my-1">No incomes added in last 60 days</h1>
+          ) : (
+            <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
                   data={data}
@@ -73,8 +73,8 @@ const PieChartDonut = ({ data, title, label, totalAmount, colors }) => {
                 <Tooltip content={<CustomTooltip />} />
                 <Legend content={<CustomLegend />} />
               </PieChart>
-            )}
-          </ResponsiveContainer>
+            </ResponsiveContainer>
+          )}
         </CardContent>
       </Card>
     </div>

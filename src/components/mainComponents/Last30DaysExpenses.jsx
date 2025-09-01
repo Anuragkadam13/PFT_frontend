@@ -26,7 +26,7 @@ const Last30DaysExpenses = ({ data = [] }) => {
         </CardHeader>
         <CardContent>
           {data?.length === 0 ? (
-            <h1>No transactions done in last 30 days.</h1>
+            <h1 className="mb-2">No transactions done in last 30 days.</h1>
           ) : (
             <CustomBarChart data={chartData} color="var(--chart-1)" />
           )}
