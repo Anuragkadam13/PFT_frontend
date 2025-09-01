@@ -25,6 +25,7 @@ const Last60daysIncome = ({ data, totalIncome }) => {
 
   return (
     <div>
+      {data?.length === 0 ? <h1>No incomes added in last 60 days</h1> : ""}
       <PieChartDonut
         title="Last 60 Days Income"
         data={chartData}
