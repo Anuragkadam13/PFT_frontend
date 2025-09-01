@@ -21,7 +21,7 @@ const Dashboard = () => {
   const { showLoading, hideLoading, isLoading } = loadContext;
   const { fetchUser, user, dashboardData, dashboarddata } = context;
   const contextExpense = useContext(expenseContext);
-  const { transactions } = contextExpense;
+  const { fetchExpenses, transactions } = contextExpense;
   useEffect(() => {
     const loadDashboardData = async () => {
       showLoading();
@@ -29,6 +29,7 @@ const Dashboard = () => {
         if (localStorage.getItem("token")) {
           await fetchUser();
           await dashboardData();
+          await fetchExpenses();
         } else {
           hideLoading();
           navigate("/login");
