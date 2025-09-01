@@ -27,6 +27,11 @@ const ExpenseTransactions = ({ transactions, onSeeMore }) => {
         </CardHeader>
         <Separator className="mt-1.5" />
         <CardContent>
+          {transactions?.length === 0 ? (
+            <h1>No transactions available, please add some transactions.</h1>
+          ) : (
+            ""
+          )}
           {transactions?.slice(0, 5)?.map((item) => {
             return (
               <TransactionInfoCard

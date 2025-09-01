@@ -12,6 +12,7 @@ import RecentIncomes from "./RecentIncomes";
 import { Button } from "../ui/button";
 import LoadingContext from "@/context/Loader/LoadingContext";
 import { formatAbbreviatedNumber } from "../utils/NumberFormatter";
+import expenseContext from "@/context/expense/ExpenseContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ const Dashboard = () => {
   const loadContext = useContext(LoadingContext);
   const { showLoading, hideLoading, isLoading } = loadContext;
   const { fetchUser, user, dashboardData, dashboarddata } = context;
+  const contextExpense = useContext(expenseContext);
+  const { transactions } = contextExpense;
   useEffect(() => {
     const loadDashboardData = async () => {
       showLoading();
@@ -117,7 +120,7 @@ const Dashboard = () => {
               totalExpense={dashboarddata?.totalExpense || 0}
             />
             <ExpenseTransactions
-              transactions={dashboarddata?.last30DaysExpense.transactions}
+              transactions={transactions}
               onSeeMore={() => navigate("/expense")}
             />
             <Last30DaysExpenses
